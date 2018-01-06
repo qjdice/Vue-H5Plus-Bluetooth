@@ -1,0 +1,106 @@
+export default {
+
+  SearchBluetooth: function () {
+
+    /*plus变量定义*/
+    var main, BluetoothAdapter, BAdapter, IntentFilter, BluetoothDevice, receiver; //有些我也不知道是啥意思-_-!;
+
+    /*其他定义*/
+    var isSearchDevices = false, //是否处于搜索状态
+        savedBleId = localStorage.getItem("bleId"), //缓存的设备ID
+        IntervalObj, //定时器对象
+        BleDeviceObjAry = [], //BleDevice对象数组 
+        debug = true; //调试模式
+
+
+    main = plus.android.runtimeMainActivity(),
+                BluetoothAdapter = plus.android.importClass("android.bluetooth.BluetoothAdapter"),
+                IntentFilter = plus.android.importClass('android.content.IntentFilter'),
+                BluetoothDevice = plus.android.importClass("android.bluetooth.BluetoothDevice"),
+                BAdapter = new BluetoothAdapter.getDefaultAdapter();
+
+
+    return {
+        // 检查蓝牙是否开启
+        CheckBluetoothState:function(){
+            return BAdapter.isEnabled();
+        },
+        StartBluetooth:function(){
+            var self = this; 
+            if(!BAdapter.isEnabled()) {  // isEnabled判断蓝牙状态
+                plus.nativeUI.confirm("蓝牙处于关闭状态，是否打开？", function(e) {
+                    if(e.index == 0) {
+                        BAdapter.enable(); // 请求开启蓝牙
+                    }
+                });
+            }
+        },
+        StartSeatch:function(CallBack,errcallback){
+            var self = this;
+            isSearchDevices = true;
+            debug && console.log("开始搜索蓝牙设备...");
+            var filter = new IntentFilter(),
+                bdevice = new BluetoothDevice();
+
+            BleDeviceObjAry = []; //清空BleDeviceObjAry
+            BAdapter.startDiscovery(); //开启搜索
+
+            receiver = plus.android.implements('io.dcloud.android.content.BroadcastReceiver', {
+                onReceive: onReceiveFn
+            });
+            filter.addAction(bdevice.ACTION_FOUND);
+            filter.addAction(BAdapter.ACTION_DISCOVERY_STARTED);
+            filter.addAction(BAdapter.ACTION_DISCOVERY_FINISHED);
+            filter.addAction(BAdapter.ACTION_STATE_CHANGED);
+            main.registerReceiver(receiver, filter); //注册监听事件
+
+            //监听回调函数  回调函数会在搜索的时候 持续调用
+            function onReceiveFn(context, intent) {
+                plus.android.importClass(intent); //通过intent实例引入intent类，方便以后的‘.’操作
+
+                //开始搜索改变状态
+                intent.getAction() === "android.bluetooth.device.action.FOUND" && (isSearchDevices = true);
+
+                //判断是否搜索结束
+                if(intent.getAction() === 'android.bluetooth.adapter.action.DISCOVERY_FINISHED') {
+                    main.unregisterReceiver(receiver); //取消监听
+                    isSearchDevices = false;
+                    BleDeviceObjAry = [];
+                    errcallback();
+                    return;
+                }
+
+                var BleDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE),
+                    bleName = BleDevice.getName(), //设备名称
+                    bleId = BleDevice.getAddress(); //设备mac地址
+
+                if(!bleName || !bleId) {
+                    CallBack(false);
+                }
+
+                //判断是否配对
+                if(BleDevice.getBondState() === bdevice.BOND_BONDED) {
+                    // debug && console.log("已配对蓝牙设备：" + bleName + '    ' + bleId);
+
+                    // // self.SetpairedListHtml(pairedList, bleName, bleId);
+                    // //如果缓存保存的设备ID和该ID一致则配对
+                    // if(savedBleId == bleId) {
+                    //     BleDevice.createBond();
+                    // }
+                    CallBack({
+                        bleName:bleName, // 设备名称
+                        bleId:bleId, // 设备id
+                        isPaired:true
+                    });
+                } else {
+                    CallBack({
+                        bleName:bleName, // 设备名称
+                        bleId:bleId, // 设备id
+                        isPaired:false
+                    });
+                }
+            }
+        },
+    }
+  }
+}

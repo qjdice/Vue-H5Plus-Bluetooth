@@ -1,0 +1,45 @@
+<template>
+  <div class="about">
+    <ul>
+      <li @click="changeInfo">联系我们详情</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Connect',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    changeInfo : function () {
+      console.log(this.$parent.selectInfoCom);
+      this.$router.push({ path: '/ConnectInfo' });
+      this.$parent.selectInfoCom = 'ConnectInfo';
+      this.$emit('ee', 'ConnectInfo');
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+  color: #42b983;
+}
+a {
+  color: #42b983;
+}
+</style>

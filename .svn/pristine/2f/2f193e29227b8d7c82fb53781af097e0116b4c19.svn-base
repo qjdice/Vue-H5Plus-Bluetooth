@@ -1,0 +1,79 @@
+<template>
+  <div class="menu_list">
+    <ul>
+      <li class="menu_li">
+        <img>
+        <p>收银</p>
+      </li>
+      <li class="menu_li">
+        <img>
+        <p>会员</p>
+      </li>
+      <li class="menu_li"> 
+        <img>
+        <p>消息</p>
+      </li>
+      <li class="menu_li"> 
+        <img>
+        <p>退货</p>
+      </li>
+      <li class="menu_li">
+        <img>
+        <p>库存</p>
+      </li>
+      <li class="menu_li">
+        <img>
+        <p>网络</p>
+      </li>
+      <li class="menu_li">
+        <img>
+        <p>更多</p>
+      </li>
+      <li class="menu_li">
+        <img>
+        <p>退出</p>
+      </li>
+    </ul>
+    <div class="clear"></div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'MenuList',
+  data () {
+    return {
+      msg: 'Welcome to My Third VUE-APP'
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+
+.menu_list ul {
+  list-style-type: none;
+  padding: 0;
+  height:100%;
+}
+.menu_li{
+  font-size:16px; 
+  font-weight:500;
+  height:100%;
+  margin:0;
+  float:left;
+  width:12.5%;
+}
+.menu_li p{
+  font-size:16px; 
+  font-weight:600;
+  color:#000;
+}
+.menu_list{
+  height:15%;
+}
+</style>

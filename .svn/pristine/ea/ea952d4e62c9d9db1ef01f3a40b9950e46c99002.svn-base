@@ -1,0 +1,41 @@
+<template>
+  <div class="about">
+    <h3> 这是联系我们的详情页！ </h3>
+    <div>
+        <h5>联系我们</h5>
+        <ul>
+            <li><span>电话：</span>(86)20-87364981</li>
+            <li><span>传真：</span>(86)20-87364339</li>
+            <li><span>地址：</span>广州市越秀区中山一路金羊一街2号1-3楼</li>
+            <li><span>邮编：</span>510600</li>
+        </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ConnectInfo',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+p {
+  padding: 5px;
+}
+a {
+  color: #42b983;
+}
+</style>

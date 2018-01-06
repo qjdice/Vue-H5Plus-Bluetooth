@@ -1,0 +1,62 @@
+<template>
+  <div id="app">
+    <div id = "left">
+       <order_data></order_data>
+    </div>
+    <div id = "right">
+      <product_data></product_data>
+      <menu_list></menu_list>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+</template>
+
+<script>
+import order_data from './components/OrderData'
+import product_data from './components/ProductData'
+import menu_list from './components/MenuList'
+
+export default {
+  name: 'app',
+  components:{
+      order_data,product_data,menu_list
+  }
+}
+</script>
+
+<style>
+body,*{
+  margin:0;padding:0;
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  background:orange;
+  border:1px solid #ccc;
+  padding:2%;
+}
+#left{
+  width:33%;
+  height:600px;
+  float:left;
+  background:#C4D7C5;
+  padding:1.5%;
+  border-radius:5px;
+}
+#right{
+  width:65%;
+  float:left;
+  background:#C4D7C5;
+  margin-left:2%;
+  padding:1.5%;
+  height:600px;
+  border-radius:5px;
+}
+.clear{
+  clear:both;
+}
+</style>

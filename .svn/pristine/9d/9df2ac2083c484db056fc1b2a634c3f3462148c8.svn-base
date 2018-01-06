@@ -1,0 +1,65 @@
+<template>
+  <div class="about">
+    <ul>
+      <li @click="changeInfo('AboutInfo')">关于我们详情</li>
+      <li @click="httpRequest">{{$t("message.music")}}</li>
+      <li @click="setConsignee">{{$t("message.music")}}</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'About',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    changeInfo : function (type) {      
+      this.$parent.selectInfoCom = 'AboutInfo';
+      // this.$emit('selectInfoComponents', type);
+    },
+    httpRequest : function (){
+      this.API.getlist().then((response) => {
+        // 响应成功回调
+        console.dir(response);
+      }, (response) => {
+        // 响应错误回调
+        console.dir(response);
+      });
+    },
+    setConsignee : function(){
+      this.API.getstoreInfo({
+        consignee:'102'
+      }).then((response) => {
+        console.dir(response);
+      }, (response) => {
+        console.dir(response);
+      });
+      
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+  color: #42b983;
+}
+a {
+  color: #42b983;
+}
+</style>

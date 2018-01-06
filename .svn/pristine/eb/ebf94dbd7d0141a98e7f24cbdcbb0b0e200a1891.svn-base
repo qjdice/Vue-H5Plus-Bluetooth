@@ -1,0 +1,30 @@
+<template>
+  <div class="about">
+    <h3> 这是关于我们的详情页！ </h3>
+    <p>广州市申迪计算机系统有限公司于1998年10月在广州市创立，是一家专业从事计算机软件开发、系统集成和技术服务的民营企业。公司已通过ISO9001：2008质量管理体系认证和ISO20000:2005信息服务管理体系认证；被评定为国家高新技术企业，具有工业和信息化部颁发的计算机信息系统集成三级资质和广东省公安厅颁发的计算机信息系统安全服务等级资质，并被认定为省市软件企业，具有国际机构颁发的CMMI认证证书。</p>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'AboutInfo',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+p {
+  padding: 5px;
+}
+a {
+  color: #42b983;
+}
+</style>

@@ -1,0 +1,44 @@
+<template>
+  <div class="about">
+    <ul>
+      <li @click="changeInfo('Bluesetting')">蓝牙打印机</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'Print',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    changeInfo : function (type) {      
+      this.$parent.selectInfoCom = type;
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+  color: #42b983;
+}
+a {
+  color: #42b983;
+}
+</style>

@@ -1,0 +1,7 @@
+
+export default { 
+	GLOBAL_CONFIG :{
+		'API_HOST': 'http://devapi1.playxs.com',
+	    'RESOURCE_HOST': 'http://retail1.playxs.com'
+	}	
+}

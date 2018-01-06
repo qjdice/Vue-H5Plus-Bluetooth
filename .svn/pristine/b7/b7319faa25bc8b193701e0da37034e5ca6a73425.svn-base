@@ -1,0 +1,73 @@
+
+export default { 
+	WEBSQL_DB: openDatabase('mydb', '1.0', 'Test DB', 100 * 1024 * 1024),//注册本地数据库
+	//执行原生SQL语句的方法
+	query(sql,callback)
+	{
+		this.WEBSQL_DB.transaction(function (tx) {
+			
+		    tx.executeSql(sql,[],function(tx,results){
+		    	
+		    	callback(results);
+		    });
+		});
+	},
+	//创建数据表
+	createtab(tablename,params,callback)
+	{
+		this.WEBSQL_DB.transaction(function (tx) {
+			var sql = 'create table IF NOT EXISTS '+tablename+' ('+params+')';
+		
+		    tx.executeSql(sql,[],function(tx,results){
+		    	callback(1);
+		    },function(results){
+		    	callback(0);
+		    },);
+		});
+	},
+	//插入数据
+	insert(tablename,params,callback)
+	{
+		
+		var params1 = [];
+		var value   = [];
+		for(var key in params)
+		{
+			params1.push(key);
+			value.push('"'+params[key]+'"');
+		}
+		params1 = params1.join(",");
+		value   = value.join(",");
+		this.WEBSQL_DB.transaction(function (tx) {
+			var sql = 'INSERT INTO '+tablename+' ('+params1+') VALUES ('+value+')';
+		    tx.executeSql(sql,[],function(tx,results){
+		    	callback(results);
+		    },function(results){
+		    	callback(0);
+		    },);
+		});
+	},
+	//修改数据
+	update(tablename,params,callback)
+	{
+		
+		var params1 = [];
+		var value   = [];
+		for(var key in params)
+		{
+			params1.push(key);
+			value.push('"'+params[key]+'"');
+		}
+		params1 = params1.join(",");
+		value   = value.join(",");
+		this.WEBSQL_DB.transaction(function (tx) {
+			var sql = 'INSERT INTO '+tablename+' ('+params1+') VALUES ('+value+')';
+		    tx.executeSql(sql,[],function(tx,results){
+		    	callback(results);
+		    },function(results){
+		    	callback(0);
+		    },);
+		});
+	},
+	
+}

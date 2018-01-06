@@ -1,0 +1,33 @@
+import Vue from 'vue'
+
+Vue.http.headers.common['haha'] = 'sunrifa';
+
+Vue.http.interceptors.push((request, next)  =>{
+
+  let GLOBAL_CONFIG = Vue.prototype.GLOBAL_CONFIG;
+  let API_HOST = GLOBAL_CONFIG['API_HOST'];
+  request['url'] = API_HOST + request['url'];
+
+  //登录成功后将后台返回的TOKEN在本地存下来,每次请求从sessionStorage中拿到存储的TOKEN值  
+  let TOKEN=sessionStorage.getItem('token');  
+  if(TOKEN){  
+    //如果请求时TOKEN存在,就为每次请求的headers中设置好TOKEN,后台根据headers中的TOKEN判断是否放行  
+    request.headers.set('token',TOKEN);
+  }else{
+    sessionStorage.setItem('token','test');
+  }
+
+  next((response) => {
+  	if(response['status'] == 200){
+  		if(response['body']['error_code'] == 0){
+  			return response;
+  		}else{
+  			mui.toast(response['body']['error_desc']);
+  		}
+  	}else{
+  		mui.toast('请求失败！');
+  	} 
+	  
+  });
+
+}); 

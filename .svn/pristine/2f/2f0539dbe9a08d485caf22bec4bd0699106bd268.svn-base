@@ -1,0 +1,62 @@
+<template>
+  <div class="setting">
+<!--     <button v-bind:disabled="show" >{{msg}}</button> -->
+    <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" @click="startBlue()">{{msg}}</button>
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell" v-for="item in items">名称：{{item.bleName}}<br>
+      mac地址：{{item.bleId}}</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'Bluesetting',
+  data () {
+    return {
+      msg: '开始搜索',
+      items:[],
+      isSearch:false
+    }
+  },
+  methods: {
+    changeInfo : function (type) {      
+      this.$parent.selectInfoCom = type; 
+    },
+    startBlue: function(){
+      mui('.mui-btn').button('loading');
+      var self = this;
+      var blue = new self.Bluetooth.SearchBluetooth();
+      mui.plusReady(function(){
+        if(!blue.CheckBluetoothState()){ // 判断是否开启蓝牙
+            blue.StartBluetooth();
+            mui('.mui-btn').button('reset');
+            return;
+        }
+        self.items = [];
+        self.isSearch = true;
+        blue.StartSeatch(function(obj){
+          if(obj){
+            if(obj.bleName){
+              self.items.push(obj);
+            }
+          }
+        },function(){
+          self.msg = '搜索结束，重新搜索！';
+          mui('.mui-btn').button('reset');
+          self.isSearch = false;
+        });
+      });
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.setting{
+  height:90%;
+  width:100%;
+}
+</style>

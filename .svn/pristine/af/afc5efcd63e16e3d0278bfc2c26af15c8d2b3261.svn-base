@@ -1,0 +1,104 @@
+<template>
+  <div id="app">
+    <div id = "left">
+        <div id="left-content" :is="selectInfoCom"></div>
+    </div>
+    <div id = "right">
+      <div id="top-content" :is="selectCom"></div>
+      <div id="menu-content" :is="selectMenu"></div>
+    </div>
+  </div>
+
+</template>
+
+<script>
+import OrderData from './components/OrderData'
+import ProductData from './components/ProductData'
+import MenuList from './components/MenuList'
+
+export default {
+  name: 'app',
+  components:{
+      OrderData,
+      ProductData,
+      MenuList
+  },
+  data () {
+    return {
+      selectCom:'ProductData',
+      selectInfoCom:'OrderData',
+      selectMenu: 'MenuList',
+    }
+  },
+  methods:{
+    selectComponents: function (type){
+      
+      this.selectCom = type;
+    },
+    selectInfoComponents: function (type) {
+      console.log(type);
+      this.selectInfoCom = type;
+    },
+    initDB:function()
+    {},
+  }
+}
+</script>
+
+<style>
+body,*{
+  margin:0;padding:0;
+
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  background:orange;
+  border:1px solid #ccc;
+  padding:2%;
+  height: 100%;
+}
+html,body{
+  height:100%;
+  width: 100%;
+}
+#left{
+  width:33%;
+  /*height:600px;*/
+  float:left;
+  background:#C4D7C5;
+  padding:1.5%;
+  border-radius:5px;
+  height: 100%;
+}
+#right{
+  width:65%;
+  float:left;
+  background:#C4D7C5;
+  margin-left:2%;
+  padding:1.5%;
+  /*height:600px;*/
+  border-radius:5px;
+  height: 100%;
+}
+#left-content{
+  height:100%;
+}
+#top-content{
+  height:85%;
+}
+#menu-content{
+  height:15%;
+}
+#app:after{
+  content:"";
+  width:0;
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+</style>

@@ -1,0 +1,77 @@
+<template>
+  <div class="order_data">
+  
+      <div class="head_icon"></div>
+      <div>
+        <p>客单</p>
+        <p class="ordersn-content">
+          <span>单号：No.17234587</span>
+          <span id="cashier">收银员：admin</span> 
+        </p>
+        <p>会员：点击选择会员 ></p> 
+      </div>
+      <div>
+        <table></table>
+      </div>
+
+    
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'OrderData',
+  data () {
+    return {
+      msg: ''
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #fff;
+}
+.order_data{
+  background:white;
+  border-radius:5px;
+  height:100%;
+
+}
+#cashier:after{
+    clear:both;
+}
+
+.ordersn-content{
+  text-align:left;
+  padding:0 4%;
+}
+.ordersn-content:after{
+  
+  clear: both;
+}
+.ordersn-content span:nth-child(1){
+    font-size:12px;
+    float:left;
+    width:65%;
+}
+.ordersn-content span:nth-child(2){
+    font-size:12px;
+    float:left;
+    width:35%;
+}
+
+</style>
