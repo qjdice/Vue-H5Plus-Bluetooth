@@ -9,7 +9,7 @@
 <div align="center">
   <a href="https://github.com/webpack/webpack">
     <img width="200" height="200"
-      src="https://cdn.rawgit.com/webpack/media/e7485eb2/logo/icon.svg">
+      src="https://cdn.jsdelivr.net/gh/webpack/media@e7485eb2/logo/icon.svg">
   </a>
   <h1>UglifyJS Webpack Plugin</h1>
 	<p>This plugin uses <a href="https://github.com/mishoo/UglifyJS2/tree/harmony">UglifyJS v3 </a><a href="https://npmjs.com/package/uglify-es">(`uglify-es`)</a> to minify your JavaScript</p>
